@@ -24,7 +24,7 @@
             </li>
             <li class="nav__item submenu">
                 <div class="nav__item--container">
-                    <a class="nav__link" id="cines">Cines</a>
+                    <div class="nav__link" id="cines">Cines</div>
                     <img src="/arrow_drop_down.svg" alt="flecha" />
                 </div>
                 <ul class="submenu__content">
@@ -61,6 +61,8 @@
                 </ul>
             </li>
         </ul>
+
+        <img src="/menu.svg" alt="" class="nav__menu" />
     </nav>
 </header>
 
@@ -150,31 +152,8 @@
         padding: 0;
     }
 
-    .search__container {
-        display: flex;
-        align-items: center;
-        height: 40px;
-        border-radius: 40px;
-        padding: 0 10px;
-    }
-
-    .search__container:hover {
-        background: #252525;
-        transition: 0.4s;
-    }
-
-    .search__container:hover > .search__input {
-        width: 15rem;
-        padding: 0 6px;
-    }
-
-    .search__container:hover > .search__button {
-        color: #2f3640;
-        cursor: pointer;
-    }
-
     .search__button {
-        color: white;
+        color: #2f3640;
         float: right;
         width: 40px;
         height: 40px;
@@ -185,6 +164,7 @@
         justify-content: center;
         align-items: center;
         transition: 0.4s;
+        cursor: pointer;
     }
 
     .search__input {
@@ -192,23 +172,32 @@
         background: none;
         outline: none;
         float: left;
-        padding: 0;
         color: white;
         font-size: 16px;
         transition: 0.4s;
         line-height: 40px;
-        width: 0px;
+        width: 15rem;
+        padding: 0 6px;
     }
 
     .clear__search {
-        display: none;
+        display: flex;
         background: none;
         border-style: none;
         cursor: pointer;
     }
 
-    .search__container:hover > .clear__search {
+    .search__container {
         display: flex;
+        align-items: center;
+        height: 40px;
+        border-radius: 40px;
+        padding: 0 10px;
+    }
+
+    .search__container {
+        background: #252525;
+        transition: 0.4s;
     }
 
     /* media querys */
@@ -291,6 +280,45 @@
         .nav__item:nth-child(5) {
             border-bottom-left-radius: 12px;
             border-bottom-right-radius: 12px;
+        }
+
+        .search__container {
+            background: none;
+        }
+
+        .search__input {
+            width: 0;
+        }
+
+        .clear__search {
+            display: none;
+        }
+
+        .search__container {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            border-radius: 40px;
+            padding: 0 10px;
+        }
+
+        .search__container:hover {
+            background: #252525;
+            transition: 0.4s;
+        }
+
+        .search__container:hover > .search__input {
+            width: 15rem;
+            padding: 0 6px;
+        }
+
+        .search__container:hover > .search__button {
+            color: #2f3640;
+            cursor: pointer;
+        }
+
+        .search__container:hover > .clear__search {
+            display: flex;
         }
     }
 </style>

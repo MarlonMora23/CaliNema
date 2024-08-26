@@ -1,4 +1,6 @@
 ---
+import { Image } from "astro:assets";
+
 const response = await fetch("https://api-calinema.onrender.com/api/movies/");
 const movies = await response.json();
 ---
@@ -21,12 +23,15 @@ const movies = await response.json();
                             movie.cinema_name === "CineColombia" && (
                                 <li class="movie__items">
                                     <figure class="movie__figure">
-                                        <img
+                                        <Image
                                             class="movie__img"
                                             src={movie.image_url}
                                             data-id={movie.id}
                                             data-title={movie.title}
                                             data-cinema={movie.cinema_name}
+                                            alt={movie.title}
+                                            width={230}
+                                            height={345}
                                         />
                                     </figure>
                                     <div class="movie__texts">
@@ -62,12 +67,15 @@ const movies = await response.json();
                             movie.cinema_name === "Cinepolis" && (
                                 <li class="movie__items">
                                     <figure class="movie__figure">
-                                        <img
+                                        <Image
                                             class="movie__img"
                                             src={movie.image_url}
                                             data-id={movie.id}
                                             data-title={movie.title}
                                             data-cinema={movie.cinema_name}
+                                            alt={movie.title}
+                                            width={230}
+                                            height={345}
                                         />
                                     </figure>
                                     <div class="movie__texts">
@@ -102,13 +110,16 @@ const movies = await response.json();
                         (movie) =>
                             movie.cinema_name === "Cinemark" && (
                                 <li class="movie__items">
-                                    <figure class="movie__figure" >
-                                        <img
+                                    <figure class="movie__figure">
+                                        <Image
                                             class="movie__img"
                                             src={movie.image_url}
                                             data-id={movie.id}
                                             data-title={movie.title}
                                             data-cinema={movie.cinema_name}
+                                            alt={movie.title}
+                                            width={230}
+                                            height={345}
                                         />
                                     </figure>
                                     <div class="movie__texts">
@@ -144,12 +155,15 @@ const movies = await response.json();
                             movie.cinema_name === "IziMovie" && (
                                 <li class="movie__items">
                                     <figure class="movie__figure">
-                                        <img
+                                        <Image
                                             class="movie__img"
                                             src={movie.image_url}
                                             data-id={movie.id}
                                             data-title={movie.title}
                                             data-cinema={movie.cinema_name}
+                                            alt={movie.title}
+                                            width={230}
+                                            height={345}
                                         />
                                     </figure>
                                     <div class="movie__texts">
@@ -348,12 +362,12 @@ const movies = await response.json();
 <script>
     //redireccionamiento
     function addDetailsLinks() {
-        document.querySelectorAll('.movie__img').forEach(img => {
-        img.addEventListener('click', function() {
-            const movieId = this.getAttribute('data-id');
-            window.location.href = `movie-details/${movieId}`;
+        document.querySelectorAll(".movie__img").forEach((img) => {
+            img.addEventListener("click", function () {
+                const movieId = this.getAttribute("data-id");
+                window.location.href = `movie-details/${movieId}`;
+            });
         });
-    });
     }
 
     //busqueda de películas
@@ -382,6 +396,7 @@ const movies = await response.json();
 
         clearSearchButton.addEventListener("click", function () {
             clearSearch();
+            hideNav();
         });
 
         function hideNav() {
@@ -515,58 +530,58 @@ const movies = await response.json();
     }
 
     //Activar el nav en pantallas pequeñas
-	function navResponsive() {
-		const menu = document.querySelector(".nav__menu");
-		const menuList = document.querySelector(".nav__list");
-		const links = document.querySelectorAll(".nav__link");
+    function navResponsive() {
+        const menu = document.querySelector(".nav__menu");
+        const menuList = document.querySelector(".nav__list");
+        const links = document.querySelectorAll(".nav__link");
 
-		menu.addEventListener("click", function () {
-			menuList.classList.toggle("nav__list--show");
-		});
+        menu.addEventListener("click", function () {
+            menuList.classList.toggle("nav__list--show");
+        });
 
-		links.forEach(function (link) {
-			link.addEventListener("click", function () {
-				menuList.classList.remove("nav__list--show");
-			});
-		});
-	}
+        links.forEach(function (link) {
+            link.addEventListener("click", function () {
+                menuList.classList.remove("nav__list--show");
+            });
+        });
+    }
 
-	//Desplazamiento del nav
-	function navScroll() {
-		const navLinks = document.querySelectorAll(".nav__scroll");
+    //Desplazamiento del nav
+    function navScroll() {
+        const navLinks = document.querySelectorAll(".nav__scroll");
 
-		// Darle función de desplazamiento a cada link
-		navLinks.forEach((link) => {
-			link.addEventListener("click", function (event) {
-				event.preventDefault();
+        // Darle función de desplazamiento a cada link
+        navLinks.forEach((link) => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
 
-				const targetClass = this.getAttribute("href").substring(1);
-				const targetElement = document.querySelector(
-					`.${targetClass}`,
-				) as HTMLElement;
+                const targetClass = this.getAttribute("href").substring(1);
+                const targetElement = document.querySelector(
+                    `.${targetClass}`,
+                ) as HTMLElement;
 
-				if (targetElement) {
-					const menuList = document.querySelector(".nav__list");
-					const links = document.querySelectorAll(".nav__link");
+                if (targetElement) {
+                    const menuList = document.querySelector(".nav__list");
+                    const links = document.querySelectorAll(".nav__link");
 
-					menuList.classList.toggle("nav__list--show");
+                    menuList.classList.toggle("nav__list--show");
 
-					links.forEach(function () {
-						menuList.classList.remove("nav__list--show");
-					});
+                    links.forEach(function () {
+                        menuList.classList.remove("nav__list--show");
+                    });
 
-					const headerHeight = 110;
-					const scrollToPosition =
-						targetElement.offsetTop - headerHeight;
+                    const headerHeight = 110;
+                    const scrollToPosition =
+                        targetElement.offsetTop - headerHeight;
 
-					window.scrollTo({
-						top: scrollToPosition,
-						behavior: "smooth",
-					});
-				}
-			});
-		});
-	}
+                    window.scrollTo({
+                        top: scrollToPosition,
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+    }
 
     function initialize() {
         addDetailsLinks();

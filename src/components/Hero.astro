@@ -1,6 +1,16 @@
+---
+import { Image } from "astro:assets";
+import calinema_banner from "../../public/calinema_banner.webp";
+---
+
 <section class="hero__main container container--hero">
     <figure class="hero__figure">
-        <img src="public/banner.svg" alt="" class="hero__img" />
+        <Image
+            src={calinema_banner}
+            alt="Calinema banner"
+            class="hero__img"
+            loading="eager"
+        />
     </figure>
 </section>
 
@@ -10,7 +20,7 @@
         max-width: 1600px;
         margin: 0 auto;
     }
-    
+
     .hero__main {
         padding-top: 120px;
         display: flex;
