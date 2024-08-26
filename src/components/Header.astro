@@ -1,0 +1,296 @@
+<header class="nav__container">
+    <nav class="nav">
+        <a href="/" class="nav__scroll">
+            <h2 class="nav__logo--link">CaliNema</h2>
+        </a>
+
+        <ul class="nav__list">
+            <li class="nav__item">
+                <div class="search__container">
+                    <input
+                        class="search__input"
+                        id="searchInput"
+                        type="text"
+                        name=""
+                        placeholder="Buscar..."
+                    />
+                    <button class="clear__search" id="clearSearchButton">
+                        <img src="/close.svg" alt="cerrrar" />
+                    </button>
+                    <button class="search__button" id="searchButton">
+                        <img src="/search.svg" alt="search" />
+                    </button>
+                </div>
+            </li>
+            <li class="nav__item submenu">
+                <div class="nav__item--container">
+                    <a class="nav__link" id="cines">Cines</a>
+                    <img src="/arrow_drop_down.svg" alt="flecha" />
+                </div>
+                <ul class="submenu__content">
+                    <li class="nav__item">
+                        <a
+                            href="#movies__cinecolombia"
+                            class="nav__scroll cinema__link">CineColombia</a
+                        >
+                    </li>
+                    <li class="nav__item">
+                        <a
+                            href="#movies__cinepolis"
+                            class="nav__scroll cinema__link">Cinepolis</a
+                        >
+                    </li>
+                    <li class="nav__item">
+                        <a
+                            href="#movies__cinemark"
+                            class="nav__scroll cinema__link">Cinemark</a
+                        >
+                    </li>
+                    <li class="nav__item">
+                        <a
+                            href="#movies__izimovie"
+                            class="nav__scroll cinema__link">IziMovie</a
+                        >
+                    </li>
+                    <li class="nav__item">
+                        <a
+                            href="#movies__royalfilms"
+                            class="nav__scroll cinema__link">RoyalFilms</a
+                        >
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<style>
+    .nav__container {
+        width: 100%;
+        height: auto;
+        background: linear-gradient(to top, #141414, #000000);
+        position: fixed;
+        z-index: 500;
+        height: 100px;
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        padding: 25px 0;
+    }
+
+    .nav__menu {
+        width: 35px;
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    .nav__list {
+        display: grid;
+        position: fixed;
+        list-style: none;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(164, 22, 26, 0.97);
+        gap: 5rem;
+        padding: 80px 0;
+        place-content: center;
+        justify-content: center;
+        text-align: center;
+        transform: translate(-100%);
+        transition: transform 0.3s;
+    }
+
+    .nav__list--show {
+        transform: translate(0);
+    }
+
+    .nav__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 25px;
+    }
+
+    .nav__link,
+    .cinema__link,
+    .nav__scroll {
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        font-size: 2rem;
+    }
+
+    .nav__logo {
+        max-width: 180px;
+    }
+
+    .nav__logo--link {
+        text-decoration: none;
+        font-size: 2rem;
+        color: #9f161a;
+    }
+
+    .nav__item--container {
+        display: none;
+    }
+
+    .submenu__content {
+        display: grid;
+        gap: 5rem;
+        /* padding: 80px; */
+        place-content: center;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .search__container {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        border-radius: 40px;
+        padding: 0 10px;
+    }
+
+    .search__container:hover {
+        background: #252525;
+        transition: 0.4s;
+    }
+
+    .search__container:hover > .search__input {
+        width: 15rem;
+        padding: 0 6px;
+    }
+
+    .search__container:hover > .search__button {
+        color: #2f3640;
+        cursor: pointer;
+    }
+
+    .search__button {
+        color: white;
+        float: right;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: none;
+        border-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s;
+    }
+
+    .search__input {
+        border: none;
+        background: none;
+        outline: none;
+        float: left;
+        padding: 0;
+        color: white;
+        font-size: 16px;
+        transition: 0.4s;
+        line-height: 40px;
+        width: 0px;
+    }
+
+    .clear__search {
+        display: none;
+        background: none;
+        border-style: none;
+        cursor: pointer;
+    }
+
+    .search__container:hover > .clear__search {
+        display: flex;
+    }
+
+    /* media querys */
+
+    @media (min-width: 850px) {
+        .container {
+            max-width: 90%;
+        }
+
+        .nav__menu {
+            display: none;
+        }
+
+        .nav__list {
+            position: static;
+            background-color: transparent;
+            padding: 0;
+            display: flex;
+            gap: 0;
+            list-style: none;
+            transform: unset;
+            transition: none;
+        }
+
+        .nav__list--show {
+            transform: unset;
+        }
+
+        .nav__link {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            font-size: 1.4rem;
+        }
+
+        .nav__item--container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .submenu {
+            position: relative;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .submenu__content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .submenu__content .nav__item {
+            margin: 0;
+            padding: 0;
+            padding: 1.5rem 0;
+        }
+
+        .submenu:hover .submenu__content {
+            display: block;
+        }
+
+        .cinema__link {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .submenu:hover,
+        .submenu .nav__item {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .nav__item:nth-child(5) {
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+    }
+</style>

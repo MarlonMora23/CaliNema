@@ -1,0 +1,70 @@
+<section class="hero__main container container--hero">
+    <figure class="hero__figure">
+        <img src="public/banner.svg" alt="" class="hero__img" />
+    </figure>
+</section>
+
+<style>
+    .container {
+        width: 90%;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .hero__main {
+        padding-top: 120px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero__figure {
+        order: -1;
+        padding: 20px;
+    }
+
+    .hero__img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+        border-radius: 12px;
+        border: 2px solid;
+        border-color: #800e13;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .hero__texts {
+        display: grid;
+        gap: 1.5rem;
+        text-align: center;
+        padding-bottom: 70px;
+    }
+
+    .hero__title {
+        font-size: 3rem;
+    }
+
+    .hero__paragraph {
+        line-height: 1.5;
+        font-weight: 280;
+        margin-bottom: 0.5rem;
+    }
+
+    /* media querys */
+
+    @media (min-width: 850px) {
+        .hero__main {
+            min-height: 500px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero__figure {
+            order: 0;
+            padding: 0;
+        }
+
+        .hero__img {
+            max-width: 100%;
+        }
+    }
+</style>

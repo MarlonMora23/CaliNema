@@ -1,0 +1,553 @@
+---
+const { movie_id } = Astro.params;
+const movie_response = await fetch(
+    `https://api-calinema.onrender.com/api/movies/${movie_id}`,
+);
+const movie = await movie_response.json();
+
+const showtimes_response = await fetch(
+    "https://api-calinema.onrender.com/api/cinemashowtime/",
+);
+const showtimes = await showtimes_response.json();
+---
+
+<header class="nav__container">
+    <nav class="nav">
+        <a href="/" class="nav__scroll">
+            <h2 class="nav__logo--link">CaliNema</h2>
+        </a>
+    </nav>
+</header>
+
+<main>
+    <div class="details__container">
+        <div class="movie__poster">
+            <section class="movie__figure">
+                <img class="movie__img" src={movie.image_url} alt="img" />
+            </section>
+            <div class="showtimes__date">
+                {
+                    (
+                        <i>
+                            * Fecha de obtencion de la pelicula:{" "}
+                            {movie.updated_at}
+                        </i>
+                    )
+                }
+            </div>
+        </div>
+
+        <div class="movie__info">
+            <section
+                class="movie__details"
+                data-original-title={movie.original_title}
+                data-country-origin={movie.country_origin}
+                data-director={movie.director}
+                data-actors={movie.actors}
+                data-language={movie.language}
+            >
+                <h2 class="movie__title">{movie.title}</h2>
+
+                <div class="info__container">
+                    <h3 class="movie__cinema">
+                        {movie.cinema_name}
+                    </h3>
+                    <h3 class="movie__length">
+                        {movie.duration}
+                    </h3>
+                    <button class="movie__button-details">Ver detalles</button>
+                </div>
+
+                <div class="more__info__container">
+                    <h3 class="movie__classification">
+                        {movie.classification}
+                    </h3>
+                    <h3 class="movie__genres">
+                        {
+                            Array.isArray(movie.genres) &&
+                            movie.genres.length > 0
+                                ? movie.genres.join(", ")
+                                : ""
+                        }
+                    </h3>
+                </div>
+                <p class="movie__synopsis">
+                    {movie.synopsis}
+                </p>
+            </section>
+
+            <section class="movie__functions">
+                <div class="functions__container">
+                    <h3 class="functions__title">Funciones</h3>
+                    <ul class="functions__list">
+                        {
+                            showtimes.map(
+                                (showtime) =>
+                                    showtime.movie === movie.id && (
+                                        <li class="function__container">
+                                            <a
+                                                href={showtime.url}
+                                                class="function__link"
+                                            >
+                                                <div class="function__item">
+                                                    <h3 class="room__title">
+                                                        Sala {showtime.room}
+                                                    </h3>
+                                                    <h4 class="format__title">
+                                                        {showtime.format}
+                                                    </h4>
+                                                    <h4 class="date__title">
+                                                        {showtime.date}
+                                                    </h4>
+                                                    <h4 class="schedule__item">
+                                                        {showtime.schedule}
+                                                    </h4>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    ),
+                            )
+                        }
+                    </ul>
+                </div>
+
+                <div class="functions__date">
+                    <div class="showtimes__date">
+                        {
+                            showtimes.map(
+                                (showtime) =>
+                                    showtime.movie === movie.id && (
+                                        <i>
+                                            * Fecha de obtencion de las
+                                            funciones: {showtime.updated_at}
+                                        </i>
+                                    ),
+                            )
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+
+<style>
+    .nav__container {
+        width: 100%;
+        height: auto;
+        background: linear-gradient(to top, #141414, #000000);
+        position: fixed;
+        z-index: 500;
+        height: 100px;
+    }
+
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        padding: 25px 0;
+    }
+
+    .nav__logo--link {
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 2rem;
+        color: #9f161a;
+    }
+    .main {
+        width: 100%;
+        min-height: 95vh;
+    }
+
+    .details__container {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-self: flex-start;
+        padding-top: 80px;
+    }
+
+    .details__container > section:first-child {
+        align-self: flex-start;
+    }
+
+    .movie__poster {
+        width: 30%;
+        padding-top: 50px;
+    }
+
+    .movie__img {
+        object-fit: cover;
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .movie__info {
+        width: 70%;
+    }
+
+    .movie__details {
+        width: 100%;
+        display: grid;
+        align-items: center;
+        gap: 1.3rem;
+        padding-top: 50px;
+        padding-left: 50px;
+    }
+
+    .movie__functions {
+        width: 100%;
+        padding-left: 50px;
+        margin: 20px 0;
+    }
+
+    .info__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .movie__title {
+        font-size: 3rem;
+        font-weight: bolder;
+    }
+
+    .movie__cinema,
+    .movie__length {
+        font-size: 2.5rem;
+    }
+
+    .movie__length {
+        text-align: center;
+    }
+
+    .movie__classification,
+    .movie__genres {
+        font-size: 2rem;
+    }
+
+    .movie__synopsis {
+        font-size: 1.3rem;
+        text-align: left;
+        padding-top: 1rem;
+    }
+
+    .movie__button-details {
+        width: 30%;
+        padding: 1rem 1.5rem;
+        background-color: #252525;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+
+    .movie__button-details:hover {
+        background-color: #202020;
+    }
+
+    .movie__details-card {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        background-color: rgba(0, 0, 0, 0.95);
+        border-radius: 12px;
+        z-index: 1000;
+        font-size: 1.5rem;
+        gap: 4rem;
+    }
+
+    .movie__details--feature {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .movie__details--text {
+        font-weight: normal;
+    }
+
+    .movie__close-button {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 3rem;
+    }
+
+    .movie__close-button:hover {
+        color: red;
+    }
+
+    .movie__actors {
+        text-align: center;
+    }
+
+    .functions__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        text-align: center;
+        list-style: none;
+        width: 100%;
+    }
+
+    .functions__title {
+        align-self: center;
+        font-size: 2rem;
+        font-weight: bold;
+        padding-bottom: 20px;
+    }
+
+    .functions__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        padding: 20px 0;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+    }
+
+    .function__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem 0;
+    }
+
+    .function__link {
+        max-width: 300px;
+        width: 75%;
+        height: 100%;
+        background-color: #780000;
+        border-radius: 12px;
+        padding: 1rem;
+        text-decoration: none;
+        color: #fff;
+    }
+
+    .function__link:hover {
+        background-color: #6a040f;
+        cursor: pointer;
+    }
+
+    .function__room {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        gap: 1.3rem;
+        padding: 0;
+        padding-top: 1.3rem;
+    }
+
+    .room__title {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .function__format {
+        list-style-type: none;
+    }
+
+    .function__schedules {
+        padding: 5px 0;
+    }
+
+    .format__title {
+        font-size: 1.4rem;
+        font-weight: 600;
+    }
+
+    .schedule {
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
+
+    .schedule__item {
+        list-style: none;
+        text-align: center;
+    }
+
+    .more__info__container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .showtimes__date {
+        padding-top: 1rem;
+    }
+
+    .footer {
+        bottom: 0;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .swal2-confirm {
+        background-color: #9f161a !important;
+    }
+
+    .swal-confirm:not([disabled]):hover {
+        background-color: #800e13 !important;
+    }
+
+    /* media querys */
+
+    @media (max-width: 1024px) {
+        .details__container {
+            flex-direction: column;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .movie__poster {
+            width: 50%;
+        }
+
+        .details__container > section:first-child {
+            align-self: center;
+        }
+
+        .info__container {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .movie__button-details {
+            padding: 1rem 7rem;
+            width: 100%;
+        }
+
+        .movie__info {
+            width: 100%;
+        }
+
+        .movie__details {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 30px 0;
+        }
+
+        .movie__functions {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+        }
+
+        .more__info__container {
+            justify-content: center;
+            align-items: center;
+        }
+    }
+</style>
+
+<script>
+    import Swal from "sweetalert2";
+
+    function showDetails() {
+        const button = document.querySelector(".movie__button-details");
+        const movieDetails = document.querySelector(".movie__details");
+
+        const originalTitle = movieDetails.getAttribute("data-original-title");
+        const countryOrigin = movieDetails.getAttribute("data-country-origin");
+        const director = movieDetails.getAttribute("data-director");
+        const language = movieDetails.getAttribute("data-language");
+        const actors = movieDetails.getAttribute("data-actors");
+
+        const movieDetailsText =
+            [
+                director && `<strong>Director: </strong> ${director} <br>`,
+                originalTitle &&
+                    `<strong>Titulo original: </strong> ${originalTitle} <br>`,
+                actors && `<strong>Actores: </strong> ${actors} <br>`,
+                countryOrigin &&
+                    `<strong>País de origen: </strong> ${countryOrigin} <br>`,
+                language &&
+                    `<strong>Idioma original: </strong> ${language} <br>`,
+            ]
+                .filter(Boolean)
+                .join("\n") || "No hay detalles disponibles para esta película";
+
+        button.addEventListener("click", function () {
+            console.log(movieDetailsText);
+            Swal.fire({
+                title: "Detalles Película",
+                html: movieDetailsText,
+            });
+        });
+    }
+
+    function redirectToShowtime() {
+        const buttonLink = document.querySelectorAll(".function__link");
+        buttonLink.forEach((button) => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                Swal.fire({
+                    title: "¿Seguro que deseas continuar?",
+                    text: "Serás redirigido a la página del cine seleccionado",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Aceptar",
+                    cancelButtonText: "Cancelar",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.open(button.getAttribute("href")); // Redirigir si se confirma
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    }
+                });
+            });
+        });
+    }
+
+    function notShowtimesMessage() {
+        const functionsList = document.querySelector(".functions__list");
+
+        // Comprobar si no se encontraron funciones
+        if (functionsList.childElementCount === 0) {
+            const noFunctions = document.createElement("li");
+            noFunctions.classList.add("noFunctions");
+            noFunctions.innerHTML = `
+            <h4 class='noFunctions__title'>
+                No se encontraron funciones para esta película.
+            </h4>
+            `;
+            functionsList.appendChild(noFunctions);
+        }
+    }
+
+    function initialize() {
+        showDetails();
+        redirectToShowtime();
+        notShowtimesMessage();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        initialize();
+    });
+</script>
