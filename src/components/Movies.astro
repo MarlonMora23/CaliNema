@@ -357,6 +357,21 @@ const movies = await response.json();
     .swal-confirm:not([disabled]):hover {
         background-color: #800e13 !important;
     }
+
+    @media (max-width: 850px) {
+        .movie__list {
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        }
+
+        .movie__figure {
+            height: 240px;
+            width: 160px;
+        }
+
+        .movie__items {
+            width: 160px;
+        }
+    }
 </style>
 
 <script>
@@ -385,7 +400,7 @@ const movies = await response.json();
         function performAndHide() {
             performSearch();
             hideNav();
-            searchInput.blur(); 
+            searchInput.blur();
         }
 
         searchInput.addEventListener("keydown", function (event) {

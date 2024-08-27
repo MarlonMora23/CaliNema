@@ -407,8 +407,7 @@ const formattedFunctionsDate = lastShowtime ? formatDate(lastShowtime.updated_at
     }
 
     .more__info__container {
-        display: flex;
-        flex-direction: column;
+        display: grid;
     }
 
     .showtimes__date {
@@ -481,8 +480,16 @@ const formattedFunctionsDate = lastShowtime ? formatDate(lastShowtime.updated_at
         }
 
         .more__info__container {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 2rem;
+            text-align: center
+        }
+
+        .movie__title {
+            text-align: center;
         }
     }
 </style>
