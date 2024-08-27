@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import calinema_banner from "../../public/calinema_banner.webp";
+import calinema_banner from "../../public/banner_n.png";
 ---
 
 <section class="hero__main container container--hero">
@@ -17,7 +17,6 @@ import calinema_banner from "../../public/calinema_banner.webp";
 <style>
     .container {
         width: 90%;
-        max-width: 1600px;
         margin: 0 auto;
     }
 
@@ -28,15 +27,17 @@ import calinema_banner from "../../public/calinema_banner.webp";
     }
 
     .hero__figure {
-        order: -1;
-        padding: 20px;
-        object-fit: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        overflow: hidden;
+        max-width: 1600px;
     }
 
     .hero__img {
-        display: block;
-        max-width: 100%;
-        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
         border-radius: 12px;
         border: 2px solid;
         border-color: #800e13;

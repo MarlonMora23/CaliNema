@@ -382,16 +382,20 @@ const movies = await response.json();
         const searchButton = document.getElementById("searchButton");
         const clearSearchButton = document.getElementById("clearSearchButton");
 
+        function performAndHide() {
+            performSearch();
+            hideNav();
+            searchInput.blur(); 
+        }
+
         searchInput.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
-                performSearch();
-                hideNav();
+                performAndHide();
             }
         });
 
         searchButton.addEventListener("click", function () {
-            performSearch();
-            hideNav();
+            performAndHide();
         });
 
         clearSearchButton.addEventListener("click", function () {
